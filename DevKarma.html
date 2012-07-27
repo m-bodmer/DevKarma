@@ -1,0 +1,268 @@
+<head>
+  <title>DevKarma</title>
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js"></script>
+  <script type="text/javascript" src="jquery.ui.touch-punch.min.js"></script>
+  <script type="text/javascript" src="app.js"></script>
+</head>
+
+<!-- Start Body -->
+<body>
+	<div class="karmaView">
+		<div class="statusBar">
+			{{> Navigation}}
+		</div>
+
+		{{> ViewHandler }}
+	</div>
+</body>
+
+<!-- View Handler -->
+<template name="ViewHandler">
+		{{#if main}}
+		<div class="lbWidget">
+	  		{{> Leaderboard}}
+		</div>
+	    {{/if}}
+		{{#if scrum}}
+			{{> Scrumboard}}
+	    {{/if}}
+
+	    {{#if chat}}
+			{{> Chatroom}}
+	    {{/if}}
+</template>
+
+<!-- Chatroom Templates -->
+<template name="Chatroom">
+	<div class="chatroom">
+		<h2>Chat Room</h2>
+
+		<div class="room">
+			{{> ChatroomBox}}
+		</div>
+
+		<!--{{#unless username}}
+			<h3>Please login</h3>
+		{{/unless}}-->
+	</div>
+</template>
+
+<template name="ChatroomBox">
+  <div id="chat" class="chat">
+    {{#each messages}}
+      {{>message}}
+    {{/each}}
+    <span id="stop"></span>
+  </div>
+  <div class="entry">
+  	<input id="handle" placeholder="Handle" class="handle" type="text" /><span id="handle-counter">32</span>
+ 	<input id="message" class="message" placeholder="Message" type="text" /><span id="message-counter">200</span>
+    <div><button name="submit" class="btn">Send</button></div>
+  </div>
+  <div id="theme" class="theme">
+    <a href="#" id="night-theme" class="label">Night Theme</a>
+    <a href="#" id="day-theme" class="label">Day Theme</a>
+  </div>
+</template>
+
+<template name="message">
+  <div class="message">
+    <span class="date_time" style="color:{{color}}">[{{date_time}}]</span>
+    <span class="handle" style="color:{{color}}">{{handle}}:</span>
+    <span class="message" style="color:{{color}}">{{#linkify}}{{/linkify}}</span>
+  </div>
+</template>
+
+<!-- Scrum Board Templates  STYLING TAKEN FROM: https://scrumy.com/demo -->
+<template name="Scrumboard">
+	<div class="scrumboard">
+		<h2>Scrum Board</h2>
+
+		{{> ScrumboardBox}}
+	</div>
+</template>
+
+<template name="ScrumboardBox">
+	<table width="100%">
+
+    <thead>
+      <tr>
+        <th id="story-header"><span>Tasks</span></th>
+        <th id="plus-header"></th>
+        <th id="todo-header"><span>To Do</span></th>
+        <th id="inprogress-header"><span>In Progress</span></th>
+        <th id="verify-header"><span>In Code Review</span></th>
+        <th id="done-header"><span>Done</span></th>
+      </tr>
+    </thead>
+
+    <tbody class="content">
+      {{> TaskList}}
+      {{> NewTask}}
+    </tbody>
+  </table>
+
+  <div id="new_todo">
+    {{> new_todo}}
+  </div>
+</template>
+
+<template name="TaskList">
+  {{#each stories}}
+    {{> story}}
+  {{/each}}
+</template>
+
+<template name="story">
+  <tr class="content" id="{{_id}}">
+    <td class="story">
+      <div>
+        <span>{{title}}</span>
+        {{#if points}}
+          <small>({{points}} points)</small>
+        {{/if}}
+      </div>
+    </td>
+    <td class="plus">
+      <button class="cross">+</button>
+    </td>
+    <td class="sortable todos" data-status="todo">
+      {{> TodoList}}
+    </td>
+    <td class="sortable wip" data-status="wip">
+      {{> WipList}}
+    </td>
+    <td class="sortable verify" data-status="verify">
+      {{> VerifyList}}
+    </td>
+    <td class="sortable done" data-status="done">
+      {{> DoneList}}
+    </td>
+  </tr>
+</template>
+
+<template name="NewTask">
+  <tr class="create_story">
+    <td>
+      <input name="title" type="text" placeholder="Title">
+      <button>New Row</button>
+    </td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+  </tr>
+</template>
+
+<template name="TodoList">
+  {{#each todos}}
+    <div class="todo" id="{{_id}}">
+      <p>{{text}}</p>
+      {{#if person}}
+        <small>{{person}}</small>
+      {{/if}}
+    </div>
+  {{/each}}
+</template>
+
+<template name="WipList">
+  {{#each todos}}
+    <div class="todo" id="{{_id}}">
+      <p>{{text}}</p>
+      {{#if person}}
+        <small>{{person}}</small>
+      {{/if}}
+    </div>
+  {{/each}}
+</template>
+
+<template name="VerifyList">
+  {{#each todos}}
+    <div class="todo" id="{{_id}}">
+      <p>{{text}}</p>
+      {{#if person}}
+        <small>{{person}}</small>
+      {{/if}}
+    </div>
+  {{/each}}
+</template>
+
+<template name="DoneList">
+  {{#each todos}}
+    <div class="todo" id="{{_id}}">
+      <p>{{text}}</p>
+      {{#if person}}
+        <small>{{person}}</small>
+      {{/if}}
+    </div>
+  {{/each}}
+</template>
+
+<template name="new_todo">
+  <div class="create_todo">
+    <textarea name="text"></textarea>
+    <input type="text" name="person" placeholder="Person">
+    <input type="hidden" name="sotry_id" value="">
+    <br>
+    <button class="create_todo_btn">New Task</button>
+  </div>
+  <div class="tooltip-pointer"></div>
+</template>
+
+<!-- Side Navigation Templates -->
+<template name="Navigation">
+	<div class="loginBar">
+		<!--{{#if username}}
+		<div class="logout">
+			<h2>Logged in as: <br> {{username}}</h2>
+		    <form id="logout">
+		      <input type="submit" value="Logout"/>
+		    </form>
+		</div>
+		{{else}}
+	     <div class="login">
+	    	<h2>Login</h2>
+	    	<form id="login">
+	      		<label>Username:</label><input type="text" id="username"/><br/>
+	    	</form>
+		</div>
+	    {{/if}}-->
+
+	    <div class="navBar">
+	    	<a id="mainButton"href="#">Main Board</a>
+	    	<br>
+	    	<a id="scrumButton" href="#">Scrum Board</a>
+	    	<br>
+	    	<a id="chatButton" href="#">Chat Room</a>
+		</div>
+	</div>
+</template>
+
+<!-- Leaderboard Templates -->
+<template name="Leaderboard">
+  <div class="leaderboard">
+    {{#each developers}}
+      {{> Developer}}
+    {{/each}}
+
+    {{#if selected_name}}
+	  <div class="details">
+	    <div class="name">Developer: {{selected_name}}</div>
+	    <input type="button" class="upvote" value="Give 1 Karma" />
+	    <input type="button" class="downvote" value="Take away 1 Karma" />
+	  </div>
+	{{/if}}
+
+	{{#unless selected_name}}
+		<div class="none">Click a Developer to select them</div>
+	{{/unless}}
+  </div>
+</template>
+
+<template name="Developer">
+	<div class="developer {{selected}}">
+    <span class="name">{{name}}</span>
+    <span class="karma">{{karma}}</span>
+  </div>
+</template>

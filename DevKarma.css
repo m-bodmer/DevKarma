@@ -1,0 +1,179 @@
+/* CSS declarations go here */
+body 
+{
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-weight: 200;
+    margin: 20px 0;
+    padding: 0;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+}
+
+body .room 
+{
+  background: #FEFEFE;
+  width: 510px;
+  padding: 30px;
+  box-shadow: 0px 2px 5px rgba(0,0,0,0.1), 0px 0px 55px rgba(0,0,0,0.1);
+  -moz-box-shadow: 0px 2px 5px rgba(0,0,0,0.1), 0px 0px 55px rgba(0,0,0,0.1);
+  -webkit-box-shadow: 0px 2px 5px rgba(0,0,0,0.1), 0px 0px 55px rgba(0,0,0,0.1);
+  margin: 0 auto;
+}
+
+body.night h1 {
+  color: #333333;
+  text-shadow: 0px 1px 0px rgba(255,255,255,0.1);
+}
+body.night .room {
+  background: #888888;
+  box-shadow: 0px 2px 5px rgba(255,255,255,0.2), 0px 0px 55px rgba(255,255,255,0.3);
+  -moz-box-shadow: 0px 2px 5px rgba(255,255,255,0.2), 0px 0px 55px rgba(255,255,255,0.3);
+  -webkit-box-shadow: 0px 2px 5px rgba(255,255,255,0.2), 0px 0px 55px rgba(255,255,255,0.3);
+  border: 1px solid #000000;
+}
+body.night .chat {
+  background: #BBBBBB;
+}
+body.night input {
+  background: #BBBBBB;
+}
+
+.chat 
+{
+  height: 300px;
+  width: 100%;
+  background-color:#000;
+  overflow-y: auto;
+  word-wrap: break-word;
+  border: 1px #CCC solid;
+  margin: 10px 0;
+}
+
+.entry 
+{
+  width: 500px;
+  margin: 10px 0;
+}
+
+.handle 
+{
+  width: 70%;
+}
+
+.navButton
+{
+  margin:20px;
+}
+
+.message 
+{
+  width: 90%;
+}
+
+span.handle 
+{
+  padding: 0 5px 0 0;
+}
+
+span.message 
+{
+  margin: 0;
+}
+
+.karmaView
+{
+	width: 900px;
+}
+
+.agileboardWidget
+{
+	width: 500px;
+	margin: 20px auto; 
+}
+
+.loginBar 
+{
+	margin-left: 50px;
+	float:left;
+}
+
+.navBar
+{
+	margin-top: 20px;
+	float:left;
+}
+
+.chatroom
+{
+	margin: 10px auto;
+	padding-left: 170px;
+}
+
+.leaderboard 
+{
+	width: 330px;
+	margin: 10px auto;
+	padding: 5px;
+}
+
+.scrumboard 
+{
+	padding-left: 170px;
+	margin: 10px auto;
+}
+
+.developer
+{
+    cursor: pointer;
+}
+
+.developer .name 
+{
+	display: inline-block;
+    width: 300px;
+    font-size: 1.75em;
+}
+
+.developer .score 
+{
+    display: inline-block;
+    width: 100px;
+    text-align: right;
+    font-size: 2em;
+    font-weight: bold;
+    color: #777;
+}
+
+.developer.selected 
+{
+    background-color: yellow;
+}
+
+.developer.selected .score 
+{
+    color: black;
+}
+
+.details
+{
+	font-weight: bold;
+    font-size: 2em;
+    border-style: dashed none none none;
+    border-color: #ccc;
+    border-width: 4px;
+    margin: 10px 10px;
+    padding: 10px 0px;
+}
+
+.upvote
+{
+	cursor: pointer;
+}
+
+.downvote
+{
+	cursor: pointer;
+}
